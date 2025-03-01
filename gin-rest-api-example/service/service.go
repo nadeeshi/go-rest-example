@@ -9,12 +9,28 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-// Get all users
+// GetUsers retrieves all users
+// @Summary Get all users
+// @Description Fetch all users from the database
+// @Tags users
+// @Accept json
+// @Produce json
+// @Success 200 {array} map[string]string
+// @Router /users [get]
 func GetUsers(c *gin.Context) {
 	c.JSON(http.StatusOK, storage.GetUsers())
 }
 
-// Get user by ID
+// GetUserByID retrieves a user by ID
+// @Summary Get user by ID
+// @Description Fetch a specific user using an ID
+// @Tags users
+// @Accept json
+// @Produce json
+// @Param id path string true "User ID"
+// @Success 200 {object} map[string]string
+// @Failure 404 {object} map[string]string "User not found"
+// @Router /users/{id} [get]
 func GetUserByID(c *gin.Context) {
 	id := c.Param("id")
 	user, found := storage.GetUserByID(id)
